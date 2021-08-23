@@ -6,9 +6,13 @@ var app = express();
 dotenv.config({ path: "./config.env" });
 
 require("./db/conn");
-const User = require("./model/userSchema");
 
-const port = process.env.PORT;
+app.use(express.json());
+// const User = require("./model/userSchema");
+app.use(require("./router/auth"));
+
+// const port = process.env.PORT;
+const port2 = 5000;
 
 //Midleware
 
@@ -37,4 +41,4 @@ app.get("/bots", (req, res) => {
   res.send("<br>BOTS");
 });
 
-app.listen({ port });
+app.listen(5000);
