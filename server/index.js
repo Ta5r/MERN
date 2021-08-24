@@ -22,7 +22,7 @@ const middleware = (req, res, next) => {
 };
 
 app.get("/", (req, res) => {
-  res.send("<br>Epress - js");
+  res.send("<br>Express - js");
 });
 
 app.get("/login", (req, res) => {
@@ -31,14 +31,6 @@ app.get("/login", (req, res) => {
 
 app.get("/signup", (req, res) => {
   res.send("<br>SIGNUP");
-});
-
-app.get("/datasrc", (req, res) => {
-  res.send("<br>DATA SOURCE");
-});
-
-app.get("/bots", (req, res) => {
-  res.send("<br>BOTS");
 });
 
 app.listen(5000);
