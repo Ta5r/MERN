@@ -1,6 +1,7 @@
 const express = require("express");
 const { findOne } = require("../model/userSchema");
 const router = express.Router();
+const bcrypt = require("bcryptjs");
 
 require("../db/conn");
 const User = require("../model/userSchema");
@@ -34,6 +35,10 @@ router.get("/", (req, res) => {
 // });
 
 router.post("/register", async (req, res) => {
+  const saltRounds = 10;
+  const myPlaintextPassword = "s0//P4$$w0rD";
+  const someOtherPlaintextPassword = "not_bacon";
+
   const { name, email, phone, work, password, cpassword } = req.body;
   //validation
   if (!name || !email || !phone || !work || !password || !cpassword) {
@@ -53,7 +58,7 @@ router.post("/register", async (req, res) => {
       password,
       cpassword,
     });
-
+    // yaha pe save() karne se pehle ek aisa func call karna hoga jo pwd ko hash karde
     await user.save();
 
     res.status(201).json({ message: "user registered successfully" });
@@ -74,9 +79,8 @@ router.post("/signin", async (req, res) => {
       console.log(userLogin);
       if (userLogin) {
         res.json({ message: "user found" }).status(200);
-      }
-      else{
-        res.json({message:"user NOT found"}).status(400);
+      } else {
+        res.json({ message: "user NOT found" }).status(400);
       }
     }
   } catch (err) {
